@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <!-- chatbot container -->
+        <section class="chatbot-container">
+            <!-- chatbot header -->
+            <div class="chatbot-header">
+                <img src="./images/chatbotLogo.png" alt="Chatbot Logo" class="logo">
+                <p class="subheading">Knowledge bank</p>
+            </div>
+            <!-- chatbot conversation container -->
+            <div class="chatbot-conversation-container" id="chatbot-conversation-container">
+                <!-- Conversation content will go here -->
+            </div>
+            <!-- chatbot input form -->
+            <form id="form" action="" class="chatbot-input-form">
+                <input placeholder="How can I help you..." name="user-input" type="text" id="user-input" required>
+                <button type="button" class="submit-btn" id="fetchQuestion">
+                    <img src="./images/sendIcon.svg" alt="Send Icon" class="send-btn-icon">
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Add your JavaScript code at the end of the body -->
+    <script>
+		document.getElementById('fetchQuestion').addEventListener('click', async () => {
+			// Récupérer la valeur de la question depuis l'input utilisateur
+			const userInput = document.getElementById('user-input').value;
+	
+			// Appeler l'API du serveur avec la question utilisateur
+			const response = await fetch(`http://127.0.0.1:3000/api/question?question=${encodeURIComponent(userInput)}`);
+			const data = await response.json();
+			
+			// Afficher la réponse dans votre HTML
+			document.getElementById('chatbot-conversation-container').innerText = `Réponse : ${data.response}`;
+		});
+	</script>
+</body>
+</html>

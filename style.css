@@ -1,0 +1,120 @@
+:root {
+    --border-rad-lg: 15px;
+    --light-text: #fefefe;
+}
+*,*::before,*::after {
+    box-sizing: border-box;
+
+}
+html,body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins';
+}
+main{
+    background-color: #343090;;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* chatbot element */
+.chatbot-container {
+    background-color: #9854cb;
+    width: 360px;
+    min-height: 380px;
+    border-radius: var(--border-rad-lg);
+    padding: 1em;
+}
+.chatbot-container > * {
+    padding: .5em;
+}
+.chatbot-header{
+    display: flex;
+    gap: .5em;
+    height: 60px;
+    align-items: center;
+}
+img{
+    width: 60px;
+    height: 60px;
+}
+.chatbot-conversation-container{
+    height: 250px;
+    overflow-y: scroll;
+    margin: 1em 0;
+}
+.chatbot-conversation-container::-webkit-scrollbar {
+    display: none;
+}
+.chatbot-conversation-container::-moz-scrollbar {
+    display: none;
+}
+.chatbot-input-form {
+    display: flex;
+}
+input[type="text"] , button {
+    background-color: transparent;
+    border: 1px solid #586e88;
+    border-radius: var(--border-rad-lg);
+    padding: 1em;
+}
+button {
+    border-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+input[type="text"]{
+    color: var(--light-text);
+    width: 100%;
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+input[type="text"]:focus{
+    outline: none;
+}
+.send-btn-icon {
+    width: 20px;
+    display: block;
+    cursor: pointer;
+}
+.speech {
+    padding: 1em;
+    max-width: 240px;
+    color: var(--light-text);
+    min-width: 90%;
+    border-radius: var(--border-rad-lg);
+    font-size: 1.07em;
+}
+.speech:first-child{
+    margin-top: 0;
+}
+.speech-ia {
+    margin: 1.2em 0 1em 0;
+    background-color: #334959;
+    border-top-left-radius: 0;
+
+}
+.speech-human {
+    margin: 1.2em 0 0 1em;
+    background-color: #2f4f4f;
+    border-top-right-radius: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
