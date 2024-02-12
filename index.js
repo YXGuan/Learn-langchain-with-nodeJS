@@ -1,11 +1,16 @@
 // server.js
+// import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
+// import { createClient } from "@supabase/supabase-js";
+// import { SupabaseVectorStore } from "langchain/vectorstores/supabase";
+// import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 
+const { RecursiveCharacterTextSplitter } = require("langchain/text_splitter");
 const { PromptTemplate } = require("langchain/prompts");
 const { ChatOpenAI } = require("langchain/chat_models/openai");
 
 const { SupabaseVectorStore } = require("langchain/vectorstores/supabase");
-const { OpenAIEmbeddings } = require('langchain/embeddings/openai');
-const { createClient } = require('@supabase/supabase-js');
+const { OpenAIEmbeddings } = require("langchain/embeddings/openai");
+const { createClient } = require("@supabase/supabase-js");
 
 
 const express = require('express');
@@ -26,6 +31,15 @@ app.get('/api/question', async (req, res) => {
     const sbApiKey = process.env.SUPABASE_API_KEY;
     const sbURL = process.env.SUPABASE_URL_LC_CHATBOT;
     const client = createClient(sbURL,sbApiKey);
+
+    const vectorStore = new SupabaseVectorStore(embedding, {
+client,
+tableName: "documents",
+queryName: "match_documents"
+    })
+      const retriever = vectorStore.asRetriever();
+
+    
     // llm
     const llm = new ChatOpenAI({ openiakeyapi });
     // standalone question
@@ -33,12 +47,12 @@ app.get('/api/question', async (req, res) => {
     // question promp
     const standaloneQuestionPromp = PromptTemplate.fromTemplate( standaloneQuestion );
     // chain using pipe
-    const standaloneQuestionChain = standaloneQuestionPromp.pipe(llm);
+    const standaloneQuestionChain = standaloneQuestionPromp.pipe(llm).pipe(retriever);
     // invoke
     const responseia = await standaloneQuestionChain.invoke({question});
-    
-    return res.json(responseia.content);
-    
+
+    return res.js   on(responseia.content);
+
 });
 
 // Démarrer le serveur
